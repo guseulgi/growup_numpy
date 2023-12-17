@@ -106,3 +106,56 @@ print(arr3d.shape)  # (2, 2, 3)
 
 print(arr3d[0].shape)  # (2, 3)
 print(arr3d[1, 0])  # [7 8 9]
+
+
+# 슬라이스
+# 축을 따라 선택한 영역 내 요소를 선택
+print(arr2d[:2])  # [[1 2 3] [4 5 6]]
+print(arr2d[:2, 1:])  # [[2 3] [5 6]]
+# 슬라이싱을 해서 같은 차원의 배열에 대한 뷰를 얻을 수 있다
+
+print(arr2d[2])  # [7 8 9]
+print(arr2d[2, :])  # [7 8 9]
+print(arr2d[2:, :])  # [[7 8 9]]
+
+
+# np.random.randn()
+names = np.array(['Bob', 'Joe', 'Bob', 'Bob', 'Will', 'Joe', 'Joe'])
+data = np.random.randn(7, 4)  # 7 Row, 4 Colum 의 랜덤값
+print(data)
+
+print(names == 'Bob')  # [ True False True True False False False]
+
+print(data[names == 'Bob'])  # Boolean 값을 기반으로 Row가 True 인 data Row 가 출력
+# 불리언 배열은 반드시 색인하려는 축의 길이와 동일한 길이를 가져야한다
+# 물론 배열의 크기가 달라서 실패하지 않는다
+print(~(names == 'Bob'))  # [False  True False False  True  True  True]
+print(data[~(names == 'Bob'), 2:])
+
+# 배열에 불리언 색인을 이용하여 데이터를 선택하면 반환되는 배열의 내용이 바뀌지 않더라도 데이터 복사가 발생한다
+# 불리언 배열에서는 and, or 대신 &, | 를 사용한다
+
+
+'''
+  팬시 색인
+  정수 배열을 사용한 색인을 설명하기 위한 용어
+'''
+arr = np.empty((8, 4))
+for i in range(8):
+    arr[i] = i
+
+print(arr)
+# [[0. 0. 0. 0.] [1. 1. 1. 1.] [2. 2. 2. 2.] [3. 3. 3. 3.] [4. 4. 4. 4.] [5. 5. 5. 5.] [6. 6. 6. 6.] [7. 7. 7. 7.]]
+
+# 특정 순서의 Row 를 선택하고자 한다면 순서가 명시된 정수가 담긴 리스트를 넘긴다
+print(arr[[4, 3, 0]])  # [[4. 4. 4. 4.] [3. 3. 3. 3.] [0. 0. 0. 0.]]
+
+# 색인으로 음수를 사용하면 끝에서부터 Row 를 선택한다
+print(arr[[-5, -7]])  # [[3. 3. 3. 3.] [1. 1. 1. 1.]]
+
+
+arr = np.arange(32).reshape((8, 4))
+# 다차원 색인 배열은 각각의 색인 튜플에 대응하는 1차원 배열이 선택된다
+print(arr[[1, 5, 7, 2], [0, 3, 1, 2]])
+# (1, 0), (5, 3), (7, 1), (2, 2) -> [ 4 23 29 10]
+# 팬시 색인의 결과는 항상 1차원이 된다
