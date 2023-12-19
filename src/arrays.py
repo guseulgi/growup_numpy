@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 '''
@@ -245,3 +246,47 @@ arr = np.random.randn(7) * 5
 remainder, whole_part = np.modf(arr)
 print(remainder)
 print(whole_part)
+
+
+'''
+  벡터화
+  배열 연산을 사용하여 반복문을 명시적으로 제거하는 기법
+
+  벡터화된 배열에 대한 산술 연산은 순수 파이썬 연산에 비해 2~수백 배까지 빠르다
+'''
+
+points = np.arange(-5, 5, 0.01)
+print(points)  # -5 ~ 4.99까지 0.01씩 증가하는 값들의 배열
+
+# np.meshgrid() 두 개의 1차원 배열을 받아서 가능한 모든 (x, y) 짝을 만들 수 있는 2차원 배열 두 개를 반환
+xs, ys = np.meshgrid(points, points)
+z = np.sqrt(xs**2+ys**2)
+print(z)
+# [[7.07106781 7.06400028 7.05693985 ... 7.04988652 7.05693985 7.06400028]
+#  [7.06400028 7.05692568 7.04985815 ... 7.04279774 7.04985815 7.05692568]
+#  [7.05693985 7.04985815 7.04278354 ... 7.03571603 7.04278354 7.04985815]
+#  ...
+#  [7.04988652 7.04279774 7.03571603 ... 7.0286414  7.03571603 7.04279774]
+#  [7.05693985 7.04985815 7.04278354 ... 7.03571603 7.04278354 7.04985815]
+#  [7.06400028 7.05692568 7.04985815 ... 7.04279774 7.04985815 7.05692568]]
+
+plt.imshow(z, cmap=plt.cm.gray)
+plt.colorbar()
+plt.title('Image plot of $\sqrt{x^2 + y^2}$ for a grid of values')
+# plt.show()
+
+
+# 배열 연산으로 조건절 표현
+xarr = np.array([1.1, 1.2, 1.3, 1.4, 1.5])
+yarr = np.array([2.1, 2.2, 2.3, 2.4, 2.5])
+cond = np.array([True, False, True, True, False])
+
+# 순수 파이썬으로 수행 - 큰 배열을 빠르게 처리하지 못하며, 다차원 배열에선 사용할 수 없다
+result = [(x if c else y) for x, y, c in zip(xarr, yarr, cond)]
+print(result)  # [1.1, 2.2, 1.3, 1.4, 2.5]
+
+# np.where() - 두 번째, 세 번째 인자는 배열이 아니어도 상관 없다 (스칼라값도 가능)
+result = np.where(cond, xarr, yarr)
+
+result2 = np.where(cond, xarr, -2)
+print(result2)  # [ 1.1 -2.   1.3  1.4 -2. ]
