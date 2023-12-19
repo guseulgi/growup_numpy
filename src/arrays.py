@@ -182,3 +182,66 @@ print(arr)  # [[[ 0  1  2  3] [ 4  5  6  7]] [[ 8  9 10 11] [12 13 14 15]]]
 # swapaxes 메서드는 두 개의 축 번호를 받아서 배열을 뒤바꾼다
 print(arr.swapaxes(1, 2))
 # [[[ 0  4] [ 1  5] [ 2  6] [ 3  7]] [[ 8 12] [ 9 13] [10 14] [11 15]]]
+
+
+'''
+  유니버설 함수
+  ufunc라고 불리는 유니버설 함수는 ndarray 안에 있는 데이터 원소별로 연산을 수행하는 함수
+  하나 이상의 스칼라값을 받아서 하나 이상의 스칼라 결괏값을 반환하는 백터화된 래퍼 함수
+'''
+arr = np.arange(10)
+
+# 단항 유니버설 함수
+# np.sqrt() 루트 처리
+print(np.sqrt(arr))
+# [0.         1.         1.41421356 1.73205081 2.         2.23606798   2.44948974 2.64575131 2.82842712 3.        ]
+
+# np.exp() 밑이 자연상수 e인 지수함수(e^x)로 변환
+print(np.exp(arr))
+# [1.00000000e+00 2.71828183e+00 7.38905610e+00 2.00855369e+01 5.45981500e+01 1.48413159e+02 4.03428793e+02 1.09663316e+03 2.98095799e+03 8.10308393e+03]
+
+'''
+  단항 유니버설 함수
+  abs, fabs : 각 원소의 점수, 부동소수점수, 복소수의 절댓값을 구한다 (복소수가 아닌 경우 빠른 연산을 위해 fabs 사용)
+  sqrt : 각 원소의 제곱근을 계산 ** 0.5 와 동일
+  square : 각 원소의 제곱을 계산 ** 2 와 동일
+  exp : 각 원소에서 지수 e^x를 계산
+  log, log10, log2, log1p : 자연소그, 로그10, 로그2, 로그(1+x)
+  sign : 각 원소의 부호를 계산 -> 1은 양수, -1은 음수
+  ceil : 각 원소의 소수자리를 올린다
+  floor : 각 원소의 소수자리를 내린다
+  rint : 각 원소의 소수자리를 반올림한다 (dtype 은 유지)
+  modf : 각 원소의 몫과 나머지를 각각의 배열로 반환
+  isnan : 각 원소가 숫자가 아닌지를 나타내는 불리언 배열 반환 (NaN)
+  isfinite, isinf : 각각 배열의 각 원소가 유한한지 무한한지 나타내는 불리언 배열 반환
+  cos, cosh, sin, sinh, tan, tanh : 일반 삼각함수와 쌍곡삼각함수
+  arccos, arccosh, arcsin, arcsinh, arctan, arctanh : 역삼각함수
+  logical_not : 각 원소의 논리 부정 값을 계산 ~arr 와 동일
+'''
+
+'''
+  이항 유니버설 함수
+  add : 두 배열에서 같은 위치의 원소끼리 더하기
+  subtract : 첫 번째 배열의 원소에서 두 번째 배열 원소를 뺀다
+  multiply : 배열의 원소끼리 곱하기
+  divide, floor_divide : 첫 번째 배열의 원소를 두 번째 배열의 원소로 나눈다 -> floor_divide 는 몫만 취한다
+  power : 첫 번째 배열의 원소를 두 번째 배열의 원소만큼 제곱한다
+  maximum, fmax : 각 배열의 두 원소 중 큰 값을 반환 -> fmax는 NaN를 무시
+  minimum, fmin : 각 배열의 두 원소 중 작은 값을 반환 -> fmin은 NaN을 무시
+  mod : 첫 번째 배열의 원소를 두 번째 배열의 원소를 나눈 나머지를 구한다
+  copysign : 첫 번째 배열의 원소의 기호를 두 번째 배열의 원소의 기호로 바꾼다
+  greater, greater_equal, less, less_equal, equal, not_equal : 각각 두 원소 간의 비교 연산 결과를 불리언 배열로 반환
+  logical_and, logical_or, logical_xor : 각각 두 원소 간의 논리 연산 결과 반환
+'''
+
+# 이항 유니버설 함수
+x = np.random.randn(8)
+y = np.random.randn(8)
+# np.maximum() 은 원소별로 가장 큰 값을 계산
+print(np.maximum(x, y))
+
+arr = np.random.randn(7) * 5
+# np.modf() divmod 의 벡터화 버전으로 분수를 받아서 몫과 나머지를 함께 반환한다
+remainder, whole_part = np.modf(arr)
+print(remainder)
+print(whole_part)
