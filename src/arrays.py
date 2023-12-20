@@ -290,3 +290,39 @@ result = np.where(cond, xarr, yarr)
 
 result2 = np.where(cond, xarr, -2)
 print(result2)  # [ 1.1 -2.   1.3  1.4 -2. ]
+
+
+# 배열 전체 혹은 배열에서 한 축을 따르는 자료에 대한 통계를 계산하는 수학 함수
+arr = np.random.randn(5, 4)
+
+# 선택적으로 axis 인자를 받아서 해당 axis 에 대한 통계를 계산하고 한 차수 낮은 배열을 반환한다
+# mean() 평균
+print(arr.mean())
+print(np.mean(arr))
+
+# sum() 합계
+print(arr.sum())
+
+print(arr.mean(axis=1))  # Column 의 평균
+print(arr.sum(axis=0))  # Row 의 합
+
+arr = np.array([0, 1, 2, 3, 4, 5, 6, 7])
+
+# cumXXX() 은 중간값을 담고 있는 배열을 반환
+print(arr.cumsum())  # [ 0  1  3  6 10 15 21 28]
+print(arr.cumprod())  # [0 0 0 0 0 0 0 0]
+
+arr = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+print(arr.cumsum(axis=0))  # [[ 0  1  2] [ 3  5  7] [ 9 12 15]]
+print(arr.cumprod(axis=1))  # [[  0   0   0] [  3  12  60] [  6  42 336]]
+
+'''
+  기본 배열 통계 메서드
+  sum
+  mean : 산술 평균
+  std, var : 표준편자, 분산 -> 분모의 기본값은 n
+  min, max : 최소, 최댓값
+  argmin, argmax : 최소 원소의 색인값과 최대 원소의 색인값
+  cumsum : 각 원소의 누적 합
+  cumprod : 각 원소의 누적 곱
+'''
