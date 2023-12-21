@@ -326,3 +326,40 @@ print(arr.cumprod(axis=1))  # [[  0   0   0] [  3  12  60] [  6  42 336]]
   cumsum : 각 원소의 누적 합
   cumprod : 각 원소의 누적 곱
 '''
+
+
+# 불리언 배열을 위한 메서드
+arr = np.random.randn(100)
+print((arr > 0).sum())  # 조건식이 참일 때만 실행됨
+
+bools = np.array([False, False, True, False])
+# any() 메서드는 하나 이상의 값이 True 인지 검사
+print(bools.any())  # True
+
+# all() 메서드는 모든 원소가 True 인지 검사
+print(bools.all())  # False
+
+# 해당 메서드는 불리언 배열이 아니어도 동작한다
+# 0 이 아닌 원소는 모두 True로 간주한다 (즉 0은 False)
+
+
+# 정렬
+arr = np.random.randn(6)
+
+arr.sort()
+print(arr)
+
+# sort() 메서드는 넘긴 축을 파라미터로 받아 1차원 부분으로 정렬된다
+# sort() 메서드는 배열을 직접 변경하지 않고 정렬된 결과를 가지고 있는 복사본을 반환
+arr = np.random.randn(5, 3)
+arr.sort(1)
+print(arr)
+
+# 배열의 분위수를 구하는 방법은 배열을 정렬한 뒤 특정 분위의 값을 선택하는 것
+large_arr = np.random.randn(1000)
+large_arr.sort()
+print(large_arr[int(0.05 * len(large_arr))])  # 5% 분위수
+'''
+  분위수는 자료를 크기 순으로 배열할 경우 그 자료를 분할하는 역할을 하는 위치의 수치를 계산한 것이다
+  분위수의 종류로는 자료를 몇 등분하는가에 따라 사분위수, 오분위수, 십분위수, 백분위수 등이 있다
+'''
