@@ -363,3 +363,24 @@ print(large_arr[int(0.05 * len(large_arr))])  # 5% 분위수
   분위수는 자료를 크기 순으로 배열할 경우 그 자료를 분할하는 역할을 하는 위치의 수치를 계산한 것이다
   분위수의 종류로는 자료를 몇 등분하는가에 따라 사분위수, 오분위수, 십분위수, 백분위수 등이 있다
 '''
+
+# 집합 관련 함수
+names = np.array(['Bob', 'Joe', 'Will', 'Bob', 'Will'])
+
+# np.unique() 배열 내에서 중복된 원소를 제거하고 남은 원소를 정렬한 형태로 반환
+print(np.unique(names))  # ['Bob' 'Joe' 'Will']
+
+# np.in1d() 두 개의 배열을 인자로 받아서 첫 번째 배열의 원소가 두 번째 배열의 원소를 포함하는지 나타내는 불리언 배열 반환
+values = np.array([6, 0, 0, 3, 2, 5, 6])
+print(np.in1d(values, [2, 3, 6]))
+# [ True False False  True  True False  True]
+
+'''
+  배열 집합 연산
+  unique(x) 배열 x에서 중복된 원소를 제거한 뒤 정렬하여 반환
+  intersect1d(x, y) 배열 x와 y에 공통적으로 존재하는 원소를 정렬하여 반환
+  union2d(x, y) 두 배열의 합집합 반환
+  in1d(x, y) x의 원소가 y의 원소에 포함되는지 나타내는 불리언 배열 반환
+  setdiff1d(x, y) x, y의 차집합 반환
+  setxor1d(x, y) 한 배열에는 포함되지만 두 배열 모두에는 포함되지 않은 원소들의 집합인 대칭차집합 반환
+'''
