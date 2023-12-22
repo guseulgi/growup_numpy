@@ -384,3 +384,26 @@ print(np.in1d(values, [2, 3, 6]))
   setdiff1d(x, y) x, y의 차집합 반환
   setxor1d(x, y) 한 배열에는 포함되지만 두 배열 모두에는 포함되지 않은 원소들의 집합인 대칭차집합 반환
 '''
+
+
+# 배열 데이터의 파일 입출력
+# 디스크에서 텍스트나 바이너리 형식의 데이터를 불러오거나 저장하기
+arr = np.arange(10)
+
+# np.save() 배열 데이터를 효과적으로 디스크에 저장하고 불러오기 위한 함수
+np.save('some', arr)
+# 배열은 기본적으로 압축되지 않은 원시 바이너리 형식의 .npy 파일로 저장된다 (확장자가 없으면 자동적으로 확장자가 추가됨)
+
+# np.load() 저장된 배열을 불러오는 함수 (확장자를 생략하면 안된다!)
+print(np.load('some.npy'))
+
+# np.savez() 여러 개의 배열을 압축된 형식(.npz)으로 저장할 수 있다
+# 파라미터를 키워드 인자 형태로 전달
+np.savez('arr.npz', a=arr, b=arr)
+
+# .npz 확장자는 각각의 배열을 필요할 때 불러올 수 있도록 사전 형식의 객체에 저장
+arrnpz = np.load('arr.npz')
+print(arrnpz['b'])
+
+# 압축이 잘되는 형식의 데이터라면 numpy.savez_compressed() 를 사용해준다
+# np.savez_compressed('arrnpz.npz', arr1=arr, arr2=arr2d)
