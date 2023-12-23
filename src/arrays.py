@@ -1,3 +1,4 @@
+from numpy.linalg import inv, qr
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -407,3 +408,54 @@ print(arrnpz['b'])
 
 # 압축이 잘되는 형식의 데이터라면 numpy.savez_compressed() 를 사용해준다
 # np.savez_compressed('arrnpz.npz', arr1=arr, arr2=arr2d)
+
+
+'''
+  선형대수
+  행렬의 곱셈, 분할, 행렬식 그리고 정사각 행렬 수학을 활용하여 배열을 다룬다
+  Matlab 같은 언어와 다르게 2개의 2차원 배열을 * 연산자로 곱하면 행렬 곱셈이 아니라
+  대응하는 각각의 원소곱을 계산한다
+
+  행렬 곱은 dot() 함수를 이용한다
+'''
+x = np.array([[1, 2, 3], [4, 5, 6]])
+y = np.array([[6, 23], [-1, 7], [8, 9]])
+
+# np.dot(a, b) 과 a.dot(b) 는 동일한 결과를 리턴한다
+print(x.dot(y))  # 행렬 곱
+print(np.dot(x, y))  # 행렬 곱
+
+# 2차원 배열과 곱셈이 가능한 크기의 1차원 배열 간 행렬 곱셈의 결과는 1차원 배열이다
+print(np.dot(x, np.ones(3)))  # [ 6. 15.]
+# @를 사용하여 행렬 곱을 수행할 수 있다
+print(x @ np.ones(3))  # [ 6. 15.]
+
+# numpy.linalg는 행렬의 분할과 역행렬, 행렬식 등을 포함하고 있다
+X = np.random.randn(5, 5)
+
+# T 속성은 전치행렬을 의미
+mat = X.T.dot(X)
+
+# inv() 역행렬을 의미
+print(inv(mat))
+
+print(mat.dot(inv(mat)))
+
+# qr() 은 QR분해를 계산
+q, r = qr(mat)
+print(r)
+
+'''
+  numpy.linalg 함수
+  diag : 정사각 행렬의 대각/비대각 원소를 1차원 배열로 반환하거나 1차원 배열을 대각선 원소로 하고 나머지는 0으로 채운 단위행렬 반환
+  dot : 행렬 곱
+  trace : 행렬의 대각선 원소의 합을 계산
+  det : 행렬식을 계산
+  eig : 정사각 행렬의 고윳값과 고유벡터를 계산
+  inv : 정사각 행렬의 역행렬 계산
+  pinv : 정사각 행렬의 무어-펜로즈 유사역원 역행렬 계산
+  qr : QR 분해 계산
+  svd : 특잇값 분해(SVD) 계산
+  solve : A 가 정사각 행렬일 때 Ax = b 를 만족하는 x
+  lstsq : Ax = b 를 만족하는 최소제곱해
+'''
