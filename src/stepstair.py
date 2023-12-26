@@ -34,3 +34,19 @@ plt.show()
 
 # argmax() 는 불리언 배열에서 최댓값의 처음 색인을 반환 -> 배열 전체를 모두 확인한다
 print((np.abs(walk) >= 10).argmax())  # walk 에서 True 가 최댓값이다
+
+
+# 한 번에 시뮬레이션 하기
+nwalk = 5000
+nsteps = 1000
+draws = np.random.randint(0, 2, size=(nwalk, nsteps))
+steps = np.where(draws > 0, 1, -1)
+walks = steps.cumsum(1)
+
+hits30 = (np.abs(walks) >= 30).any(1)
+# print(hits30)
+
+hits30.sum()  # 누적합이 30 혹은 -30이 되는 경우의 수
+crossing_times = (np.abs(walks[hits30]) >= 30).argmax(
+    1)  # 처음 위치에서 30칸 이상 멀어지는 최소 횟수
+print(crossing_times.mean())
