@@ -30,7 +30,29 @@ ax2.scatter(np.arange(30), np.arange(30) + 3 * np.random.randn(30))  # 두번째
 # figure 에 만들어진 서브플롯 중 하나에 그래프가 그려진다 (아래의 경우 가장 마지막 서브플롯에 그려짐)
 plt.plot(np.random.randn(50).cumsum(), 'k--')
 # cumsum() 배열에서 주어진 축에 따라 누적되는 원소들의 누적 합을 계산
-plt.show()
+# plt.show()
 
 
 # plt.subplots() 배열과 서브플롯 객체를 서로 생성하여 반환
+# fig, axes = plt.subplots(2, 3)
+# axes 에는 2차원 배열이 들어가짐 sharex, sharey 를 사용하여 x, y축을 가질 수 있다
+'''
+  pyplot.subplots 옵션
+  nrows : 서브플롯의 Row 수
+  ncols : 서브플롯의 Column 수
+  sharex : 모든 서브플롯이 같은 x축 눈금을 사용
+  sharey : 모든 서브플롯이 같은 y축 눈금을 사용
+  subplot_kw : add_subplot 을 사용하여 서브플롯을 생성할 때 사용할 키워드를 담고 있는 사전
+  fig_kw : figure 를 생성할 때 사용할 추가적인 키워드 인자
+'''
+
+
+# 서브플롯 간격 조절
+# matplotlib 은 서브플롯 간에 적당한 간격과 여백을 추가해준다. 이는 전체 그래프의 높이와 너비에 따라 상대적으로 결정된다.
+fig, axes = plt.subplots(2, 2, sharex=True, sharey=True)
+for i in range(2):
+    for j in range(2):
+        axes[i, j].hist(np.random.randn(500), bins=50, color='k', alpha=0.5)
+# wspace, hspace 는 서브플롯 간격을 위해 각각 figure 의 너비와 높이에 대한 비율을 조절할 수 있다
+plt.subplots_adjust(wspace=1, hspace=1)
+plt.show()
